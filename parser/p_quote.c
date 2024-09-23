@@ -6,7 +6,7 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:10:17 by zayaz             #+#    #+#             */
-/*   Updated: 2024/09/15 20:32:18 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/21 20:02:57 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static char	*quote_handler(t_program *program, char *input, char quote)
 	input = quote_check(program, input + 1, quote);
 	return (input);
 }
-
 
 int	p_quote(t_program *program, char *input)
 {

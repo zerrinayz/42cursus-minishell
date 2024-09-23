@@ -6,7 +6,7 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:32:15 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/15 20:22:32 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:14:23 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_list(t_list *list)
 	while (list != NULL)
 	{
 
-		printf("%s=%s\n", list->key, (char *)list->content);
+		printf("%s=%s\n",list->key, (char *)list->content);
 		list = list->next;
 	}
 }

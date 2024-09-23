@@ -6,7 +6,7 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:25:37 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/15 19:05:36 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/22 20:26:38 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,26 @@
 static char	*in_quote_string(char *s, char c)
 {
 	s++;
-	while (*s && (*s != '\'' && *s != '\"'))
-		s++;
 	while (*s && *s != c)
+		s++;
+	if (*s == c)
 		s++;
 	return (s);
 }
 
- int	count_string(char *s, char c)
+int	count_string(char *s, char c)
 {
-	int	count;
+	int		count;
+	char	quote_type;
 
 	count = 0;
 	while (*s)
 	{
 		if (*s == '\'' || *s == '\"')
-			s = in_quote_string(s, c);
+		{
+			quote_type = *s;
+			s = in_quote_string(s, quote_type);
+		}
 		else
 		{
 			while (*s && *s != c && (*s != '\'' && *s != '\"'))
@@ -46,12 +50,15 @@ static char	*in_quote_string(char *s, char c)
 	return (count);
 }
 
-static int	in_quote_char(char *s, char c, int i)
+static int	in_quote_char(char *s, int i)
 {
+	char	quote_type;
+
+	quote_type = s[i];
 	i++;
-	while (s[i] && (s[i] != '\'' && s[i] != '\"'))
+	while (s[i] && s[i] != quote_type)
 		i++;
-	while (s[i] && s[i] != c)
+	if (s[i] == quote_type)
 		i++;
 	return (i);
 }
@@ -65,25 +72,23 @@ static int	count_char(char *s, char c)
 	{
 		if (s[i] == '\'' || s[i] == '\"')
 		{
-			i = in_quote_char(s, c, i);
-			if (s[i] == c || s[i] == '\0')
-				return (i);
+			i = in_quote_char(s, i);
+			// if (s[i] == c || s[i] == '\0')
+			// 	return (i);
 		}
 		else
 		{
-			while (s[i] && s[i] != c && (s[i] != '\'' && s[i] != '\"'))
+			while (s[i] && s[i] != c && s[i] != '\'' && s[i] != '\"')
 				i++;
-			if (s[i] == c || s[i] == '\0' || s + i + 1 == NULL)
-			{
-				if (s[i] == c || s[i] == '\0')
-					return (i);
-			}
+			// if (s[i] == c || s[i] == '\0' || s + i + 1 == NULL)
+			// {
+			if (s[i] == c || s[i] == '\0')
+				return (i);
+			//}
 		}
 	}
 	return (i);
 }
-
-
 
 char	**zi_split(t_program *program, char *s, char c)
 {
@@ -103,6 +108,7 @@ char	**zi_split(t_program *program, char *s, char c)
 	while (*s)
 	{
 		i = count_char(s, c);
+		//printf("i:::%d\n", i);
 		s1[x++] = ft_substr(s, 0, i);
 		s = walk_string(program, s, c);
 	}

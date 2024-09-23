@@ -6,7 +6,7 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:54:27 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/15 18:56:01 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/22 20:24:42 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,17 @@ char	*walk_to_quote_pipe(t_program *program, char *s, char c)
 	while (*s && (*s != '\'' && *s != '\"'))
 		s++;
 	while (*s && *s != c)
-		s++;
+	{
+		if (*s == '\'' || *s == '\"')
+		{
+			s = walk_to_quote_pipe(program, s, c); // Yeni tırnağa git
+		}
+		else
+		{
+			s++; // Diğer karakterleri atla
+		}
+		
+	}
 	if (*s == c || *s == '\0')
 	{
 		if (*s)

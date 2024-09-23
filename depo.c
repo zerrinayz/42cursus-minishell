@@ -21,3 +21,12 @@
 // 	}
 // 	return (0);
 // }
+//i = 0;
+	// while (split_space[i])
+	// {
+	// 	free(split_space[i]);
+	// 	i++;
+	// }
+
+	// 	free_array(split_space);
+	// free_array(pipe_input);

@@ -6,40 +6,16 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:50:25 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/15 20:36:58 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/21 20:01:36 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	free_envp_list(t_list *envp_list)
-// {
-// 	t_list	*temp;
-
-// 	while (envp_list)
-// 	{
-// 		temp = envp_list->next;
-// 		free(envp_list->content);
-// 		free(envp_list->key); // Eğer içerik dinamik olarak tahsis edildiyse
-// 		// Eğer içerik dinamik olarak tahsis edildiyse
-// 		free(envp_list); // Liste düğümünü serbest bırak
-// 		envp_list = temp;
-// 	}
-// }
-
-// void	free_program(t_program *program)
-// {
-// 	if (!program)
-// 		return ;
-// 	if (program->input)
-// 		free(program->input);
-// 	if (program->envp_list)
-// 		free_envp_list(program->envp_list);
-// 	free(program);
-// }
 int	main(int argc, char **argv, char **envp)
 {
 	t_program	*program;
+	char		*tmp;
 
 	program = NULL;
 	(void)argv;
@@ -50,12 +26,17 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		program->input = readline("minishell 🐥>");
-		program->input = ft_strtrim(program->input, " ");
+		tmp = ft_strtrim(program->input, " ");
+		free(program->input);
+		program->input = tmp;
+
 		if (program->input)
 		{
 			add_history(program->input);
 			if (!ft_strncmp(program->input, "exit", 5))
-				exit(0);
+			{
+				break ;
+			}
 		}
 		if (program->input == NULL)
 		{
@@ -65,10 +46,11 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (!ft_parser(program, program->input))
 			break ;
+		
+		//exec
+		free_parser_input(program);	
+		 free(tmp);
 	}
+	free_program(program);
+	//system("leaks minishell");
 }
-
-// void __attribute__((constructor)) a()
-// {
-// 	system("leaks minishell");
-// 

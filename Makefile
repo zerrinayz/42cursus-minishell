@@ -9,10 +9,12 @@ SRCS= main.c\
 	  parser/p_redirection.c\
 	  utils/zi_split.c\
 	  utils/zi_split_2.c\
+	  lexer/lexer.c\
+	  utils/lexer_list.c\
 
 OBJS= $(SRCS:.c=.o)
 CC= gcc
-CFLAGS= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS= -Wall -Wextra -Werror -g -fsanitize=address
 RM= rm -rf
 LIBFT=./includes/libft/libft.a
 READLINE=readline

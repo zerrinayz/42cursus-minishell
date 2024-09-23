@@ -6,7 +6,7 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:11:08 by zayaz             #+#    #+#             */
-/*   Updated: 2024/09/15 15:54:24 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/21 20:03:39 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ static char	*pipe_in_ridect(char *input)
 		input++;
 	return (input);
 }
-int	p_pipe(char *input)
+int	p_pipe(t_program *program, char *input)
 {
+	(void)program;
 	if (*input == '|')
 		return (error_message("syntax error to pipe"));
 	while (*input)

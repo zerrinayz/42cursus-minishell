@@ -6,73 +6,89 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:57:38 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/15 20:22:09 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/22 20:26:11 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int clean_input(t_program *program, char *input)
+int	fill_pipe_input(t_program *program, char *pipe_input, int k)
 {
-	char **pipe_input;
-	char **split_space;
-	int i;
-	int k;
-	int j;
-	int z;
+	char	**split_space;
+	int		j;
+	int		z;
+
+	split_space = zi_split(program, pipe_input, ' ');
+	program->parser_input[k] = (t_lexer **)malloc((count_string(pipe_input, ' ')
+				+ 1) * sizeof(char *));
+	if (!program->parser_input[k])
+	{
+		free_array(split_space);
+		free(pipe_input);
+		return (error_message("Memory allocation"), -1);
+	}
+	j = 0; 
+	z = 0;
+	while (split_space[j])
+	{
+		program->parser_input[k][z] = (t_lexer *)malloc(sizeof(t_lexer));
+		if (split_space[j][0] != '\0' && split_space[j][0] != ' ')
+		{
+			program->parser_input[k][z]->cmd = ft_strdup(split_space[j]);
+			program->parser_input[k][z]->key = set_meta(program,
+					split_space[j]);
+			// printf("sos Command %d, Arg %d: %s  key:%d\n", k, z,
+			// 	program->parser_input[k][z]->cmd,
+			// 	program->parser_input[k][z]->key);
+			z++;
+		}
+		j++;
+	}
+	free_array(split_space);
+	return (z);
+}
+
+static int	clean_input(t_program *program, char *input)
+{
+	char	**pipe_input;
+	int		i;
+	int		k;
+	int		z;
+
 	i = 0;
 	z = 0;
 	k = 0;
-	j = 0;
 	pipe_input = zi_split(program, input, '|');
-	program->parser_input = (char ***)malloc((count_string(input, '|') + 1) * sizeof(char **));
+	program->parser_input = (t_lexer ***)malloc((count_string(input, '|') + 1)
+			* sizeof(char **));
 	if (!program->parser_input)
-		return error_message("Memory allocation");
+	{
+		free_array(pipe_input);
+		return (error_message("Memory allocation"));
+	}
 	while (pipe_input[i])
 	{
-		split_space = zi_split(program, pipe_input[i], ' ');
-
-		program->parser_input[k] = (char **)malloc((count_string(pipe_input[i], ' ') + 1) * sizeof(char *));
-		if (!program->parser_input[k])
-			return error_message("Memory allocation");
-		j = 0;
-		z = 0;
-		while (split_space[j])
-		{
-			if (split_space[j][0] != '\0' && split_space[j][0] != ' ')
-			{
-				program->parser_input[k][z] = split_space[j];
-				printf("Command %d, Arg %d: %s\n", k, z, program->parser_input[k][z]);
-				z++;
-			}
-			j++;
-		}
+		if ((z = fill_pipe_input(program, pipe_input[i], k)) == -1)
+			return (0);
 		program->parser_input[k][z] = NULL;
 		k++;
 		i++;
 	}
 	program->parser_input[k] = NULL;
-	i = 0;
-	while (split_space[i])
-	{
-		free(split_space[i]);
-		i++;
-	}
-	free(split_space);
-	free(pipe_input);
-	return 1;
+	free_array(pipe_input);
+	return (1);
 }
 
-int ft_parser(t_program *program, char *input)
+int	ft_parser(t_program *program, char *input)
 {
 	if (!p_quote(program, input))
 		return (0);
-	if (!p_redirection(program->input))
+	if (!p_redirection(program, program->input))
 		return (0);
-	if (!p_pipe(input))
+	if (!p_pipe(program, input))
 		return (0);
 	if (!clean_input(program, input))
 		return (0);
-
+	quote_clean(program);
 	return (1);
 }
