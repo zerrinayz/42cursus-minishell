@@ -125,6 +125,8 @@ void f(char *parser_input)
 
 	zi_strlcpy(parser_input, tmp, ft_strlen(parser_input));
 
+    printf("ciktim\n");
+	
 	free(tmp);
 }
 
@@ -141,11 +143,13 @@ void quote_clean(t_program *program)
 
 		while (program->parser_input[i][j])
 		{
-			// if (program->parser_input[i][j]->key == Dolar || program->parser_input[i][j]->key == S_Dolar)
-			// 	printf("işlersiniz bi ara kipps\n");
-			
 			ft_striteri(program->parser_input[i][j]->cmd, f);
 			printf("-----------command:%d: arg:%d:%s  key:%d\n", i, j, program->parser_input[i][j]->cmd, program->parser_input[i][j]->key);
+
+			if (program->parser_input[i][j]->key == 5 && count_dolar(program->parser_input[i][j]->cmd) == 1)
+
+				loc_dolar(program, program->parser_input[i][j]->cmd);
+
 			j++;
 		}
 		i++;

@@ -34,6 +34,7 @@ char *zi_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t i;
 
+	dst = (char *)malloc(dstsize * sizeof(char) + 1);
 	i = 0;
 	if (!src || !dstsize)
 		return (dst);

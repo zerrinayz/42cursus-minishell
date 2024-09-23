@@ -3,7 +3,40 @@
 //  echo "$HOME"'$HOME''"$HOME"' birden fazla dolarlı ise dolar olarak ----dolar
 // setle . tırnak temizlerken birden fazla varsa içini tek tek temizle(execde)
 
-//
+//"$HOME"
+
+char *get_env(t_program *program, char *parser_input)
+{
+    while (program->envp_list)
+    {
+        if (!ft_strncmp(program->envp_list->key, parser_input, ft_strlen(parser_input)))
+        {
+            printf("giridm\n");
+           return (zi_strlcpy(parser_input, program->envp_list->content, ft_strlen(program->envp_list->content)));
+        }
+        program->envp_list = program->envp_list->next;
+    }
+    return(parser_input);
+
+
+}
+void loc_dolar(t_program *program, char *parser_input)
+{
+
+    int i = 0;
+    while (parser_input[i])
+    {
+        if (parser_input[i] == '$')
+        {
+            i++;
+         
+           parser_input=  get_env(program, &parser_input[i]);
+            printf("get_env:%s\n", parser_input);
+        }
+        i++;
+    }
+}
+
 int count_dolar(char *parser_input)
 {
     int i = 0;
@@ -12,10 +45,10 @@ int count_dolar(char *parser_input)
     while (parser_input[i])
     {
         if (parser_input[i] == '$')
-            count;
+            count++;
         i++;
     }
-    return(count);
+    return (count);
 }
 
 void dolar_handler(t_program *program)
@@ -28,7 +61,7 @@ void dolar_handler(t_program *program)
         j = 0;
         while (program->parser_input[i][j])
         {
-            if (program->parser_input[i][j]->key == 5 && count_dolar(program->parser_input[i][j]) > 1)
+            if (program->parser_input[i][j]->key == 5 && (count_dolar(program->parser_input[i][j]->cmd)) == 1)
             {
             }
             j++;
