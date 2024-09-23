@@ -59,8 +59,10 @@ static int	clean_input(t_program *program, char *input)
 	z = 0;
 	k = 0;
 	pipe_input = zi_split(program, input, '|');
+
 	program->parser_input = (t_lexer ***)malloc((count_string(input, '|') + 1)
 			* sizeof(char **));
+	
 	if (!program->parser_input)
 	{
 		free_array(pipe_input);
@@ -90,5 +92,7 @@ int	ft_parser(t_program *program, char *input)
 	if (!clean_input(program, input))
 		return (0);
 	quote_clean(program);
+	dolar_handler(program);
+
 	return (1);
 }

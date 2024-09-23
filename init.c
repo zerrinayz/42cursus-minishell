@@ -18,7 +18,7 @@ void	print_list(t_list *list)
 	while (list != NULL)
 	{
 
-		printf("%s=%s\n",list->key, (char *)list->content);
+		printf("%s=%s\n",(char *)list->key, (char *)list->content);
 		list = list->next;
 	}
 }

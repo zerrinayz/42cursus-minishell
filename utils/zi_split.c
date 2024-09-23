@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static char	*in_quote_string(char *s, char c)
+char *in_quote_string(char *s, char c)
 {
 	s++;
 	while (*s && *s != c)
@@ -22,10 +22,10 @@ static char	*in_quote_string(char *s, char c)
 	return (s);
 }
 
-int	count_string(char *s, char c)
+int count_string(char *s, char c)
 {
-	int		count;
-	char	quote_type;
+	int count;
+	char quote_type;
 
 	count = 0;
 	while (*s)
@@ -40,7 +40,7 @@ int	count_string(char *s, char c)
 			while (*s && *s != c && (*s != '\'' && *s != '\"'))
 				s++;
 		}
-		if (*s == c || *s == '\0' || *s + 1 == '\0')
+		if (*s == c || *s == '\0')
 		{
 			count++;
 			if (*s)
@@ -50,9 +50,9 @@ int	count_string(char *s, char c)
 	return (count);
 }
 
-static int	in_quote_char(char *s, int i)
+static int in_quote_char(char *s, int i)
 {
-	char	quote_type;
+	char quote_type;
 
 	quote_type = s[i];
 	i++;
@@ -63,9 +63,9 @@ static int	in_quote_char(char *s, int i)
 	return (i);
 }
 
-static int	count_char(char *s, char c)
+static int count_char(char *s, char c)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (s[i])
@@ -73,43 +73,40 @@ static int	count_char(char *s, char c)
 		if (s[i] == '\'' || s[i] == '\"')
 		{
 			i = in_quote_char(s, i);
-			// if (s[i] == c || s[i] == '\0')
-			// 	return (i);
 		}
 		else
 		{
 			while (s[i] && s[i] != c && s[i] != '\'' && s[i] != '\"')
 				i++;
-			// if (s[i] == c || s[i] == '\0' || s + i + 1 == NULL)
-			// {
+
 			if (s[i] == c || s[i] == '\0')
 				return (i);
-			//}
 		}
 	}
 	return (i);
 }
 
-char	**zi_split(t_program *program, char *s, char c)
+char **zi_split(t_program *program, char *s, char c)
 {
-	int		word;
-	int		i;
-	int		x;
-	char	**s1;
+	int word;
+	int i;
+	int x;
+	char **s1;
 
 	i = 0;
 	x = 0;
 	if (!s)
 		return (NULL);
 	word = count_string(s, c);
+
 	s1 = ft_calloc(word + 1, sizeof(char *));
 	if (!s1)
 		return (NULL);
 	while (*s)
 	{
 		i = count_char(s, c);
-		//printf("i:::%d\n", i);
 		s1[x++] = ft_substr(s, 0, i);
+
 		s = walk_string(program, s, c);
 	}
 	s1[x] = NULL;

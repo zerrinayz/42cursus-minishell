@@ -10,6 +10,7 @@ SRCS= main.c\
 	  utils/zi_split.c\
 	  utils/zi_split_2.c\
 	  lexer/lexer.c\
+	  lexer/dolar_handler.c\
 	  utils/lexer_list.c\
 
 OBJS= $(SRCS:.c=.o)

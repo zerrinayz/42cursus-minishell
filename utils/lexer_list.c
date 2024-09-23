@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-void	ft_striteri(char *s, void (*f)(char *))
+void ft_striteri(char *s, void (*f)(char *))
 {
 	if (!s || !f)
-		return ;
+		return;
 	f(s);
 }
 
-int	zi_strrchr(const char *s, int c, int i)
+int zi_strrchr(const char *s, int c, int i)
 {
 	if (!s[i])
 		return (0);
@@ -30,18 +30,19 @@ int	zi_strrchr(const char *s, int c, int i)
 	}
 	return (0);
 }
-char	*zi_strlcpy(char *dst, const char *src, size_t dstsize)
+char *zi_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	if (!src || !dstsize)
 		return (dst);
-	while (i < (dstsize - 1) && src[i])
+	while (i <= (dstsize - 1) && src[i])
 	{
 		dst[i] = src[i];
 		i++;
 	}
 	dst[i] = '\0';
+
 	return (dst);
 }

@@ -71,5 +71,8 @@ int			zi_strrchr(const char *s, int c, int i);
 void		quote_clean(t_program *program);
 char		*zi_strlcpy(char *dst, const char *src, size_t dstsize);
 void		zi_striteri(char *s, void (*f)(char *));
+ char	*in_quote_string(char *s, char c);
+void dolar_handler(t_program *program);
+
 
 #endif

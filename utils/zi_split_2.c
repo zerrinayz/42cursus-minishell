@@ -12,24 +12,20 @@
 
 #include "../minishell.h"
 
-char	*walk_to_quote_pipe(t_program *program, char *s, char c)
+char *walk_to_quote_pipe(t_program *program, char *s, char c)
 {
+
+	char quote_type;
 	program->control_q_split = 0;
-	s++;
-	while (*s && (*s != '\'' && *s != '\"'))
-		s++;
-	while (*s && *s != c)
+	quote_type = *s;
+	s = in_quote_string(s, quote_type);
+
+	if ((*s != '\'' && *s != '\"') && *s != c)
 	{
-		if (*s == '\'' || *s == '\"')
-		{
-			s = walk_to_quote_pipe(program, s, c); // Yeni tırnağa git
-		}
-		else
-		{
-			s++; // Diğer karakterleri atla
-		}
-		
+		while (*s && (*s != '\'' && *s != '\"') && *s != c)
+			s++;
 	}
+
 	if (*s == c || *s == '\0')
 	{
 		if (*s)
@@ -42,12 +38,12 @@ char	*walk_to_quote_pipe(t_program *program, char *s, char c)
 	return (s);
 }
 
-char	*walk_to_pipe(t_program *program, char *s, char c)
+char *walk_to_pipe(t_program *program, char *s, char c)
 {
 	program->control_p_split = 0;
 	while (*s && *s != c && (*s != '\'' && *s != '\"'))
 		s++;
-	if (*s == c || *s == '\0' || *s + 1 == '\0')
+	if (*s == c || *s == '\0')
 	{
 		if (*s)
 		{
@@ -59,22 +55,25 @@ char	*walk_to_pipe(t_program *program, char *s, char c)
 	return (s);
 }
 
-char	*walk_string(t_program *program, char *s, char c)
+char *walk_string(t_program *program, char *s, char c)
 {
+
 	while (*s)
 	{
 		if (*s == '\'' || *s == '\"')
 		{
 			s = walk_to_quote_pipe(program, s, c);
+
 			if (program->control_q_split)
-				break ;
+				break;
 		}
 		else
 		{
 			s = walk_to_pipe(program, s, c);
 			if (program->control_p_split)
-				break ;
+				break;
 		}
 	}
+
 	return (s);
 }
