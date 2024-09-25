@@ -6,19 +6,20 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:25:38 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/22 18:57:34 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/24 17:12:01 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-void ft_striteri(char *s, void (*f)(char *))
+
+void	zi_striteri(t_lexer *s, void f(t_lexer *))
 {
 	if (!s || !f)
-		return;
+		return ;
 	f(s);
 }
 
-int zi_strrchr(const char *s, int c, int i)
+int	zi_strrchr(const char *s, int c, int i)
 {
 	if (!s[i])
 		return (0);
@@ -30,9 +31,9 @@ int zi_strrchr(const char *s, int c, int i)
 	}
 	return (0);
 }
-char *zi_strlcpy(char *dst, const char *src, size_t dstsize)
+char	*zi_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t i;
+	size_t	i;
 
 	dst = (char *)malloc(dstsize * sizeof(char) + 1);
 	i = 0;
@@ -44,6 +45,19 @@ char *zi_strlcpy(char *dst, const char *src, size_t dstsize)
 		i++;
 	}
 	dst[i] = '\0';
-
 	return (dst);
+}
+
+size_t	zi_strlen(const char *s, char c)
+{
+	size_t i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (i);
+		i++;
+	}
+	return (i);
 }

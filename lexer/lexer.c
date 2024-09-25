@@ -6,16 +6,16 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:42:31 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/22 20:25:52 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/24 19:47:31 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int set_dolar(char *meta)
+static int	set_dolar(char *meta)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -55,9 +55,8 @@ static int set_dolar(char *meta)
 	return (S_Dolar);
 }
 
-int set_meta(t_program *program, char *meta)
+int	set_meta(t_program *program, char *meta)
 {
-
 	(void)program;
 	if ((ft_strchr(meta, 34) == 0) && (ft_strchr(meta, 39) == 0))
 	{
@@ -78,78 +77,81 @@ int set_meta(t_program *program, char *meta)
 		return (set_dolar(meta));
 	return (412);
 }
-void f(char *parser_input)
+void	f(t_lexer *parser_inputiz)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
+	char	*parser_input;
+	int		j;
 
+	parser_input = parser_inputiz->cmd;
 	tmp = (char *)malloc((ft_strlen(parser_input) + 1) * sizeof(char));
 	if (!tmp)
 	{
 		printf("Bellek ayırma hatası!\n");
-		return;
 	}
-	int j = 0;
-	i = 0;
-	while (parser_input[i] != '\0')
+	else
 	{
-		if (parser_input[i] == '\'')
+		j = 0;
+		i = 0;
+		while (parser_input[i] != '\0')
 		{
-			i++;
-			while (parser_input[i] != '\'' && parser_input[i] != '\0')
+			if (parser_input[i] == '\'')
+			{
+				i++;
+				while (parser_input[i] != '\'' && parser_input[i] != '\0')
+				{
+					tmp[j] = parser_input[i];
+					i++;
+					j++;
+				}
+			}
+			else if (parser_input[i] == '\"')
+			{
+				i++;
+				while (parser_input[i] != '\"' && parser_input[i] != '\0')
+				{
+					tmp[j] = parser_input[i];
+					i++;
+					j++;
+				}
+			}
+			else if (parser_input[i] && parser_input[i] != '\"'
+				&& parser_input[i] != '\'')
 			{
 				tmp[j] = parser_input[i];
-				i++;
 				j++;
 			}
-		}
-		else if (parser_input[i] == '\"')
-		{
-			i++;
-			while (parser_input[i] != '\"' && parser_input[i] != '\0')
-			{
-				tmp[j] = parser_input[i];
+			if (parser_input[i])
 				i++;
-				j++;
-			}
 		}
-		else if (parser_input[i] && parser_input[i] != '\"' && parser_input[i] != '\'')
-		{
-			tmp[j] = parser_input[i];
-			j++;
-		}
-		if (parser_input[i])
-			i++;
+		tmp[j] = '\0';
+		parser_inputiz->cmd = zi_strlcpy(parser_input, tmp,
+				ft_strlen(parser_input));
 	}
-	tmp[j] = '\0';
-
-	zi_strlcpy(parser_input, tmp, ft_strlen(parser_input));
-
-    printf("ciktim\n");
-	
 	free(tmp);
 }
 
-void quote_clean(t_program *program)
+void	quote_clean(t_program *program)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (program->parser_input[i])
 	{
 		j = 0;
-
 		while (program->parser_input[i][j])
 		{
-			ft_striteri(program->parser_input[i][j]->cmd, f);
-			printf("-----------command:%d: arg:%d:%s  key:%d\n", i, j, program->parser_input[i][j]->cmd, program->parser_input[i][j]->key);
-
-			if (program->parser_input[i][j]->key == 5 && count_dolar(program->parser_input[i][j]->cmd) == 1)
-
-				loc_dolar(program, program->parser_input[i][j]->cmd);
-
+			zi_striteri(program->parser_input[i][j], f);
+		//	printf("iteri:%s",program->parser_input[i][j]->cmd);
+			if (program->parser_input[i][j]->key == 5
+				&& count_dolar(program->parser_input[i][j]->cmd) == 1)
+				loc_dolar(program, program->parser_input[i][j]);
+			printf("-----------command:%d: arg:%d:%s  key:%d\n", i, j,
+				program->parser_input[i][j]->cmd,
+				program->parser_input[i][j]->key);
 			j++;
 		}
 		i++;

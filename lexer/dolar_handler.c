@@ -5,67 +5,107 @@
 
 //"$HOME"
 
-char *get_env(t_program *program, char *parser_input)
+int	is_env(char *parser_input, char quote_type)
 {
-    while (program->envp_list)
-    {
-        if (!ft_strncmp(program->envp_list->key, parser_input, ft_strlen(parser_input)))
-        {
-            printf("giridm\n");
-           return (zi_strlcpy(parser_input, program->envp_list->content, ft_strlen(program->envp_list->content)));
-        }
-        program->envp_list = program->envp_list->next;
-    }
-    return(parser_input);
+	int	i;
 
-
-}
-void loc_dolar(t_program *program, char *parser_input)
-{
-
-    int i = 0;
-    while (parser_input[i])
-    {
-        if (parser_input[i] == '$')
-        {
-            i++;
-         
-           parser_input=  get_env(program, &parser_input[i]);
-            printf("get_env:%s\n", parser_input);
-        }
-        i++;
-    }
+	i = 0;
+	if (!ft_strchr(parser_input, quote_type) && ft_strchr(parser_input, 36))
+		return (0);
+	return (1);
 }
 
-int count_dolar(char *parser_input)
+char	*get_env(t_program *program, char *parser_input, char c)
 {
-    int i = 0;
-    int count = 0;
-
-    while (parser_input[i])
-    {
-        if (parser_input[i] == '$')
-            count++;
-        i++;
-    }
-    return (count);
+	while (program->envp_list)
+	{
+		if (!ft_strncmp(program->envp_list->key, parser_input,
+				zi_strlen(parser_input, c)))
+		{
+			return (zi_strlcpy(parser_input, program->envp_list->content,
+					ft_strlen(program->envp_list->content)));
+		}
+		program->envp_list = program->envp_list->next;
+	}
+	return (NULL);
 }
 
-void dolar_handler(t_program *program)
+void	loc_dolar(t_program *program, t_lexer *parser_inputiz)
 {
-    int i = 0;
-    int j = 0;
+	char	*parser_input;
+	char	*tmp;
+	int		i;
+	int		j;
+	int		dolar;
+	char	quote_type;
+	char	*tmp2;
+	char	*tmp3;
 
-    while (program->parser_input[i])
-    {
-        j = 0;
-        while (program->parser_input[i][j])
-        {
-            if (program->parser_input[i][j]->key == 5 && (count_dolar(program->parser_input[i][j]->cmd)) == 1)
-            {
-            }
-            j++;
-        }
-        i++;
-    }
+	dolar = 0;
+	quote_type = '\0';
+	tmp = NULL;
+	j = 0;
+	tmp = malloc(sizeof(char) * (zi_strlen(parser_inputiz->cmd, '$') + 1));
+	parser_input = parser_inputiz->cmd;
+	i = 0;
+	while (parser_input[i])
+	{
+		if (parser_input[i] == '\'' || parser_input[i] == '\"')
+		{
+			quote_type = parser_input[i];
+			if (!is_env(parser_input + i + 1, quote_type))
+			{
+				tmp[j] = parser_input[i];
+				j++;
+				i++;
+			}
+			else 
+			{
+				tmp[j] = parser_input[i];
+				i++;
+				j++;
+			}
+		}
+		if (parser_input[i] == '$')
+		{
+			dolar = 1;
+			i++;
+			tmp2 = get_env(program, &parser_input[i], quote_type);
+			//printf("----------tmp2:%s\n", tmp2);
+			if (tmp2)
+			{
+				while (parser_input[i] && parser_input[i] != '\'' && parser_input[i] != '\"')
+					i++;
+				tmp3 = ft_strchr(parser_input + i, quote_type);
+				printf("tmp3:%s\n",tmp3);
+			}
+		}
+		if (parser_input[i])
+		{
+			i++;
+		}
+	}
+	tmp[j] = '\0';
+	//printf("tmp:%s\n",tmp);
+	tmp = ft_strjoin(tmp, tmp2);
+	//printf("tmp3:%s\n", tmp3);
+	parser_inputiz->cmd = ft_strjoin(tmp, tmp3);
+	//printf("cmd:%s\n", parser_inputiz->cmd );
+	free(tmp);
+}
+
+int	count_dolar(char *parser_input)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (parser_input[i])
+	{
+		if (parser_input[i] == '$')
+			count++;
+		i++;
+	}
+	return (count);
 }
