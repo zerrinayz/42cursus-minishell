@@ -6,7 +6,7 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:50:28 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/24 17:24:20 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/25 19:23:33 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,16 @@ typedef struct s_lexer
 	char	*cmd;
 	int		key;
 }			t_lexer;
+
+
+
 typedef struct s_program
 {
 	t_list	*envp_list;
 	t_list	*lexer_list;
 	char	*input;
 	t_lexer	***parser_input;
+	t_lexer **d_cmd;
 	int		check_quote;
 	int		control_q_split;
 	int		control_p_split;
@@ -72,9 +76,11 @@ void		quote_clean(t_program *program);
 char		*zi_strlcpy(char *dst, const char *src, size_t dstsize);
 void		zi_striteri(t_lexer *s, void f(t_lexer *));
 char		*in_quote_string(char *s, char c);
-void		dolar_handler(t_program *program);
-int			count_dolar(char *parser_input);
+int	d_count_cmd(t_program *program, char *p_input);
+	int count_dolar(char *parser_input);
 void		loc_dolar(t_program *program, t_lexer *parser_inputi);
-char		*get_env(t_program *program, char *parser_input,char c);
+char		*get_env(t_program *program, char *parser_input, char c);
 size_t		zi_strlen(const char *s, char c);
+void		dolar_mix_assign(t_program *program, t_lexer *parser_input);
+int	is_env(char *parser_input, char quote_type);
 #endif
