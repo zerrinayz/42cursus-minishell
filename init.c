@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:32:15 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/21 15:14:23 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/30 19:46:43 by zerrinayaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_list(t_list *list)
+void print_list(t_list *list)
 {
-	
+
 	while (list != NULL)
 	{
 
-		printf("%s=%s\n",(char *)list->key, (char *)list->content);
+		printf("%s=%s\n", (char *)list->key, (char *)list->content);
 		list = list->next;
 	}
 }
 
-static t_list	*set_env(char **envp)
+static t_list *set_env(char **envp)
 {
-	int		i;
-	t_list	*tmp_list;
-	char	**tmp;
+	int i;
+	t_list *tmp_list;
+	char **tmp;
 
 	tmp_list = NULL;
 	i = 0;
@@ -42,7 +42,7 @@ static t_list	*set_env(char **envp)
 	return (tmp_list);
 }
 
-static void	signal_handler(int sig)
+static void signal_handler(int sig)
 {
 	global_signal = sig;
 	if (global_signal == SIGINT)
@@ -59,14 +59,14 @@ static void	signal_handler(int sig)
 	}
 	global_signal = 0;
 }
-void	init_signal(void)
+static void init_signal(void)
 {
 	signal(SIGINT, signal_handler);
 	signal(EOF, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	ft_init_program(t_program *program, char **envp)
+void ft_init_program(t_program *program, char **envp)
 {
 	program->input = NULL;
 	program->envp_list = set_env(envp);

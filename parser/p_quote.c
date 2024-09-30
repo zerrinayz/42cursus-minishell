@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   p_quote.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:10:17 by zayaz             #+#    #+#             */
-/*   Updated: 2024/09/21 20:02:57 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/30 19:47:09 by zerrinayaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*quote_check(t_program *program, char *input, char c)
+static char *quote_check(t_program *program, char *input, char c)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	program->check_quote = 0;
@@ -23,20 +23,20 @@ static char	*quote_check(t_program *program, char *input, char c)
 		if (input[i] == c)
 		{
 			program->check_quote = 1;
-			break ;
+			break;
 		}
 		i++;
 	}
 	return (input + i);
 }
 
-static char	*quote_handler(t_program *program, char *input, char quote)
+static char *quote_handler(t_program *program, char *input, char quote)
 {
 	input = quote_check(program, input + 1, quote);
 	return (input);
 }
 
-int	p_quote(t_program *program, char *input)
+int p_quote(t_program *program, char *input)
 {
 	while (*input)
 	{
@@ -45,7 +45,7 @@ int	p_quote(t_program *program, char *input)
 		if (!program->check_quote)
 			return (error_message("syntax error to quote"));
 		if (!*input)
-			break ;
+			break;
 		input++;
 	}
 	return (1);

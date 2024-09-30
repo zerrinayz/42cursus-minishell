@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:50:25 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/21 20:01:36 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/30 19:47:17 by zerrinayaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	t_program	*program;
-	char		*tmp;
+	t_program *program;
+	char *tmp;
 
 	program = NULL;
 	(void)argv;
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(program->input);
 			if (!ft_strncmp(program->input, "exit", 5))
 			{
-				break ;
+				break;
 			}
 		}
 		if (program->input == NULL)
@@ -45,12 +45,12 @@ int	main(int argc, char **argv, char **envp)
 			exit(1);
 		}
 		if (!ft_parser(program, program->input))
-			break ;
-		
-		//exec
-		free_parser_input(program);	
-		 free(tmp);
+			break;
+
+		// exec
+		free_parser_input(program);
+		free(tmp);
 	}
 	free_program(program);
-	//system("leaks minishell");
+	// system("leaks minishell");
 }

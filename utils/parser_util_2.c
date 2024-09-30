@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zi_split_2.c                                       :+:      :+:    :+:   */
+/*   parser_util_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:54:27 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/22 20:24:42 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/30 19:18:32 by zerrinayaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *walk_to_quote_pipe(t_program *program, char *s, char c)
+static char *walk_to_quote_pipe(t_program *program, char *s, char c)
 {
 
 	char quote_type;
@@ -38,7 +38,7 @@ char *walk_to_quote_pipe(t_program *program, char *s, char c)
 	return (s);
 }
 
-char *walk_to_pipe(t_program *program, char *s, char c)
+static char *walk_to_pipe(t_program *program, char *s, char c)
 {
 	program->control_p_split = 0;
 	while (*s && *s != c && (*s != '\'' && *s != '\"'))

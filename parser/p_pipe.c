@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   p_pipe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:11:08 by zayaz             #+#    #+#             */
-/*   Updated: 2024/09/21 20:03:39 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/30 19:46:49 by zerrinayaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*min_pipe(char *input)
+static char *min_pipe(char *input)
 {
 	while (*input && !(*input == '\'' || *input == '\"'))
 		input++;
@@ -21,7 +21,7 @@ static char	*min_pipe(char *input)
 	return (input);
 }
 
-static char	*pipe_in_ridect(char *input)
+static char *pipe_in_ridect(char *input)
 {
 	while (*input == '<' || *input == '>')
 		input++;
@@ -29,7 +29,7 @@ static char	*pipe_in_ridect(char *input)
 		input++;
 	return (input);
 }
-int	p_pipe(t_program *program, char *input)
+int p_pipe(t_program *program, char *input)
 {
 	(void)program;
 	if (*input == '|')

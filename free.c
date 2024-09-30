@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 17:47:51 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/21 13:18:34 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/30 19:32:24 by zerrinayaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_envp_list(t_list *envp_list)
+static void	free_envp_list(t_list *envp_list)
 {
 	t_list	*temp;
 
@@ -72,3 +72,4 @@ void	free_program(t_program *program)
 		free_envp_list(program->envp_list);
 	free(program);
 }
+
