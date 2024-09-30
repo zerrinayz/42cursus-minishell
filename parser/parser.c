@@ -6,11 +6,23 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:57:38 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/22 20:26:11 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/29 20:18:45 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static int	space_cmd(t_program *program, t_lexer *parser_input,
+		char *split_space, int z)
+{
+	if (split_space[0] != '\0' && split_space[0] != ' ')
+	{
+		parser_input->cmd = ft_strdup(split_space);
+		parser_input->key = set_meta(program, split_space);
+		z++;
+	}
+	return (z);
+}
 
 int	fill_pipe_input(t_program *program, char *pipe_input, int k)
 {
@@ -27,21 +39,12 @@ int	fill_pipe_input(t_program *program, char *pipe_input, int k)
 		free(pipe_input);
 		return (error_message("Memory allocation"), -1);
 	}
-	j = 0; 
+	j = 0;
 	z = 0;
 	while (split_space[j])
 	{
 		program->parser_input[k][z] = (t_lexer *)malloc(sizeof(t_lexer));
-		if (split_space[j][0] != '\0' && split_space[j][0] != ' ')
-		{
-			program->parser_input[k][z]->cmd = ft_strdup(split_space[j]);
-			program->parser_input[k][z]->key = set_meta(program,
-					split_space[j]);
-			// printf("sos Command %d, Arg %d: %s  key:%d\n", k, z,
-			// 	program->parser_input[k][z]->cmd,
-			// 	program->parser_input[k][z]->key);
-			z++;
-		}
+		z = space_cmd(program, program->parser_input[k][z], split_space[j], z);
 		j++;
 	}
 	free_array(split_space);
@@ -51,30 +54,25 @@ int	fill_pipe_input(t_program *program, char *pipe_input, int k)
 static int	clean_input(t_program *program, char *input)
 {
 	char	**pipe_input;
-	int		i;
 	int		k;
 	int		z;
 
-	i = 0;
 	z = 0;
 	k = 0;
 	pipe_input = zi_split(program, input, '|');
-
 	program->parser_input = (t_lexer ***)malloc((count_string(input, '|') + 1)
 			* sizeof(char **));
-	
 	if (!program->parser_input)
 	{
 		free_array(pipe_input);
 		return (error_message("Memory allocation"));
 	}
-	while (pipe_input[i])
+	while (pipe_input[k])
 	{
-		if ((z = fill_pipe_input(program, pipe_input[i], k)) == -1)
+		if ((z = fill_pipe_input(program, pipe_input[k], k)) == -1)
 			return (0);
 		program->parser_input[k][z] = NULL;
 		k++;
-		i++;
 	}
 	program->parser_input[k] = NULL;
 	free_array(pipe_input);
@@ -92,7 +90,5 @@ int	ft_parser(t_program *program, char *input)
 	if (!clean_input(program, input))
 		return (0);
 	quote_clean(program);
-	dolar_handler(program);
-
 	return (1);
 }

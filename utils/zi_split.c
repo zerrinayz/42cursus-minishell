@@ -6,7 +6,7 @@
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:25:37 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/22 20:26:38 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/09/29 19:28:27 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ char **zi_split(t_program *program, char *s, char c)
 	{
 		i = count_char(s, c);
 		s1[x++] = ft_substr(s, 0, i);
-
 		s = walk_string(program, s, c);
 	}
 	s1[x] = NULL;
