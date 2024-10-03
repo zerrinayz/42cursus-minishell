@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_free.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 19:25:23 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/01 19:25:25 by zayaz            ###   ########.fr       */
+/*   Created: 2024/10/02 15:37:45 by zayaz             #+#    #+#             */
+/*   Updated: 2024/10/02 17:47:22 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	dolar_free(char *env_str, char *after_dolar)
+void	pwd(void)
 {
-	if (env_str[0] != '\0')
-		free(env_str);
-	if (after_dolar)
-		free(after_dolar);
+	// büyük küçük harf duyarsız
+	char pwd[1024];
+	getcwd(pwd, sizeof(pwd));
+	printf("%s", pwd);
 }

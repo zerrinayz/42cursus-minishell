@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 17:47:51 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/30 19:32:24 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/02 16:35:42 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	free_parser_input(t_program *program)
 
 	i = 0;
 	j = 0;
-	if(!program->parser_input)
-		return;
+	if (!program->parser_input)
+		return ;
 	while (program->parser_input[i])
 	{
 		j = 0;
@@ -72,4 +72,3 @@ void	free_program(t_program *program)
 		free_envp_list(program->envp_list);
 	free(program);
 }
-

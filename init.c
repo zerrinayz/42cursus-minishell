@@ -6,7 +6,7 @@
 /*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:32:15 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/30 19:46:43 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/03 18:21:38 by zerrinayaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static t_list *set_env(char **envp)
 		free_array(tmp);
 		i++;
 	}
+	//print_list(tmp_list);
 	return (tmp_list);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_list.c                                       :+:      :+:    :+:   */
+/*   lexer_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 13:25:38 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/29 17:07:39 by itulgar          ###   ########.fr       */
+/*   Created: 2024/10/01 19:25:00 by zayaz             #+#    #+#             */
+/*   Updated: 2024/10/01 19:25:03 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*zi_strlcpy(char *dst, const char *src, size_t dstsize)
 	dst[i] = '\0';
 	return (dst);
 }
-int	zi_strchr(const char *s, int c, char type)
+static int	zi_strchr(const char *s, int c, char type)
 {
 	while (*s && *s != (char)c && *s != type)
 		s++;
@@ -57,27 +57,24 @@ int	zi_strchr(const char *s, int c, char type)
 }
 size_t	zi_strlen(const char *s, char c, int dhand)
 {
-	size_t i;
-	char q_type;
+	size_t	i;
+	char	q_type;
+
 	i = 0;
-	
 	while (s[i])
 	{
 		if ((s[i] == '\"' || s[i] == '\'') && dhand)
 		{
 			q_type = s[i];
-
 			if (q_type == '\"')
 			{
 				if (zi_strchr(s + i + 1, 36, q_type) != 0)
 					return (i);
 			}
-
 			i++;
 			while (s[i] && s[i] != q_type)
 				i++;
 		}
-
 		if (s[i] == c)
 			return (i);
 		if (s[i])

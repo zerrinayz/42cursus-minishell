@@ -15,6 +15,11 @@ SRCS= main.c\
 	  lexer/dolar_handler.c\
 	  lexer/dolar_handler_2.c\
 	  utils/lexer_util.c\
+	  builtin/echo.c\
+	  builtin/cd.c\
+	  builtin/pwd.c\
+	  builtin/env.c\
+	  builtin/export.c\
 
 OBJS= $(SRCS:.c=.o)
 CC= gcc
