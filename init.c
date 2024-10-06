@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:32:15 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/03 18:21:38 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/05 15:07:26 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void print_list(t_list *list)
 
 	while (list != NULL)
 	{
-
 		printf("%s=%s\n", (char *)list->key, (char *)list->content);
 		list = list->next;
 	}
 }
+
 
 static t_list *set_env(char **envp)
 {
@@ -39,7 +39,6 @@ static t_list *set_env(char **envp)
 		free_array(tmp);
 		i++;
 	}
-	//print_list(tmp_list);
 	return (tmp_list);
 }
 
@@ -71,6 +70,8 @@ void ft_init_program(t_program *program, char **envp)
 {
 	program->input = NULL;
 	program->envp_list = set_env(envp);
+	program->export_list=set_env(envp);
+
 	global_signal = 0;
 	program->check_quote = 1;
 	program->control_q_split = 0;

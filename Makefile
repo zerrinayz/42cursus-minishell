@@ -20,6 +20,7 @@ SRCS= main.c\
 	  builtin/pwd.c\
 	  builtin/env.c\
 	  builtin/export.c\
+	  builtin/zi_unset.c\
 
 OBJS= $(SRCS:.c=.o)
 CC= gcc

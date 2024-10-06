@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:36:01 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/02 15:47:03 by zayaz            ###   ########.fr       */
+/*   Updated: 2024/10/05 19:51:35 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static int	flag_control(t_lexer ***flag_input, int *j)
 	int	i;
 
 	i = 0;
+	
 	if (flag_input[0][1]->cmd[0] == '-' && flag_input[0][1]->cmd[1] == 'n'
 		&& flag_input[i][1]->cmd[2] == '\0')
 	{
 		while (ft_strncmp(flag_input[i][*j]->cmd, "-n", ft_strlen("-n")) == 0
 			&& flag_input[i][*j]->cmd[2] == '\0')
 		{
-			printf("geldim\n");
 			if (flag_input[i][*j]->cmd)
 				(*j)++;
 		}
@@ -40,7 +40,7 @@ void	echo(t_lexer ***parser_input)
 
 	i = 0;
 	j = 1;
-	if (!parser_input[0])
+	if (!parser_input[0][1] && !parser_input[0])
 		return ;
 	flag = flag_control(parser_input, &j);
 	while (parser_input[i] && parser_input[i][j] && parser_input[i][j]->cmd)
@@ -56,5 +56,4 @@ void	echo(t_lexer ***parser_input)
 	}
 	if (!flag)
 		printf("\n");
-	exit(1);
 }

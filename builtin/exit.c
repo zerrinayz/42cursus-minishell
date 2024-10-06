@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 11:47:51 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/05 15:35:48 by itulgar          ###   ########.fr       */
+/*   Created: 2024/10/05 18:24:22 by itulgar           #+#    #+#             */
+/*   Updated: 2024/10/05 18:47:53 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-size_t	ft_strlen(const char *c)
-{
-	size_t	i;
-
-	i = 0;
-	while (c[i])
-	{
-		i++;
-	}
-	return (i);
-}
+// void exit(t_program *program,t_lexer ***parser_input)
+// {
+	
+// }
