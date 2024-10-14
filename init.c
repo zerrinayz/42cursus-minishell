@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:32:15 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/05 15:07:26 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/13 18:29:56 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_list *set_env(char **envp)
 	return (tmp_list);
 }
 
-static void signal_handler(int sig)
+ void signal_handler(int sig)
 {
 	global_signal = sig;
 	if (global_signal == SIGINT)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:47:05 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/05 18:11:07 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/13 17:59:02 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,40 @@ static void	export_env(t_program *program)
 	}
 }
 
-void	equals(char *parser_input, int *k)
+void	equals(char *cmd, int *k)
 {
-	while (parser_input[*k] != '\0' && parser_input[*k] != 61)
+	while (cmd[*k] != '\0' && cmd[*k] != 61)
 		(*k)++;
-	if (parser_input && parser_input[*k] == 61)
+	if (cmd && cmd[*k] == 61)
 		(*k)++;
 }
-void	export(t_program *program, t_lexer ***parser_input)
+static char	*equals_key(char *cmd)
+{
+	char	*equ_key;
+	int		len;
+	int		i;
+
+	equ_key = NULL;
+	len = ft_strlen(cmd);
+	equ_key = malloc(len + 1);
+	if (equ_key == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		if (cmd[i] == 61)
+		{
+			equ_key[i] = '\0';
+			return (equ_key);
+		}
+		equ_key[i] = cmd[i];
+		i++;
+	}
+	equ_key[i] = '\0';
+	return (equ_key);
+}
+
+void	export(t_program *program, char **cmd)
 {
 	int		i;
 	int		k;
@@ -49,29 +75,32 @@ void	export(t_program *program, t_lexer ***parser_input)
 	char	*content;
 	t_list	*node;
 	t_list	*node2;
+	char	*equ_key;
 
 	equal = 0;
 	k = 0;
 	i = 1;
-	if (parser_input[0] == NULL)
-		return ;
-	if (parser_input[0][i] == NULL)
+
+	if (!cmd[i])
 		export_env(program);
-	else if (parser_input[0][i]->cmd)
+	else if (cmd[i])
 	{
-		while (parser_input[0][i])
+		while (cmd[i])
 		{
-			if (!check_identifier(parser_input[0][i]->cmd)){
-				printf("unset: `%s':not a valid identifier\n",
-					parser_input[0][i]->cmd);
-			}
-			else if (ft_strchr(parser_input[0][i]->cmd, 61) != 0)
+			equ_key = equals_key(cmd[i]);
+			if (!check_identifier(equ_key))
 			{
-				equals(parser_input[0][i]->cmd, &k);
+				printf("export: `%s':not a valid identifier\n",
+					cmd[i]);
+					free(equ_key);
+			}
+			else if (ft_strchr(cmd[i], 61) != 0)
+			{
+				equals(cmd[i], &k);
 				equal = k;
-				key = ft_substr(parser_input[0][i]->cmd, 0, k - 1);
-				equals(parser_input[0][i]->cmd, &k);
-				content = ft_substr(parser_input[0][i]->cmd, equal, k);
+				key = ft_substr(cmd[i], 0, k - 1);
+				equals(cmd[i], &k);
+				content = ft_substr(cmd[i], equal, k);
 				search_set_env(program, key, content);
 				if (program->export_flag == 0)
 				{
@@ -85,9 +114,10 @@ void	export(t_program *program, t_lexer ***parser_input)
 			}
 			else
 			{
-				node = ft_lstnew("(null)", parser_input[0][i]->cmd);
+				node = ft_lstnew("(null)", cmd[i]);
 				ft_lstadd_back(&program->export_list, node);
 			}
+			free(equ_key);
 			i++;
 		}
 	}

@@ -3,28 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:36:01 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/05 19:51:35 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/13 14:34:57 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	flag_control(t_lexer ***flag_input, int *j)
+static int	flag_control(char **cmd, int *j)
 {
 	int	i;
 
 	i = 0;
-	
-	if (flag_input[0][1]->cmd[0] == '-' && flag_input[0][1]->cmd[1] == 'n'
-		&& flag_input[i][1]->cmd[2] == '\0')
+	if (cmd[1][0] == '-' && cmd[1][1] == 'n' && cmd[1][2] == '\0')
 	{
-		while (ft_strncmp(flag_input[i][*j]->cmd, "-n", ft_strlen("-n")) == 0
-			&& flag_input[i][*j]->cmd[2] == '\0')
+		while (cmd[i] != NULL && ft_strncmp(cmd[i], "-n",
+				ft_strlen("-n")) == 0 && cmd[i][*j] == '\0')
 		{
-			if (flag_input[i][*j]->cmd)
+			if (cmd[i][*j])
 				(*j)++;
 		}
 		return (1);
@@ -32,7 +30,7 @@ static int	flag_control(t_lexer ***flag_input, int *j)
 	return (0);
 }
 
-void	echo(t_lexer ***parser_input)
+void	echo(char **cmd)
 {
 	int	flag;
 	int	i;
@@ -40,20 +38,21 @@ void	echo(t_lexer ***parser_input)
 
 	i = 0;
 	j = 1;
-	if (!parser_input[0][1] && !parser_input[0])
+	if (!cmd[0][1])
 		return ;
-	flag = flag_control(parser_input, &j);
-	while (parser_input[i] && parser_input[i][j] && parser_input[i][j]->cmd)
+	flag = flag_control(cmd, &j);
+	while (cmd[i] && cmd[i][j])
 	{
-		printf("%s", parser_input[i][j]->cmd);
-		if (parser_input[i] && parser_input[i][j] && parser_input[i][j]->cmd)
+		printf("%s", cmd[i]);
+		if (cmd[i] && cmd[i] && cmd[i])
 		{
 			printf(" ");
 			j++;
 		}
-		if (!parser_input[i][j])
+		if (!cmd[i][j])
 			break ;
 	}
 	if (!flag)
 		printf("\n");
+	exit(0);
 }

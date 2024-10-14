@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:57:38 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/30 19:46:29 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/12 16:47:32 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static int fill_pipe_input(t_program *program, char *pipe_input, int k)
 	int j;
 	int z;
 
-	split_space = zi_split(program, pipe_input, ' ');
-	program->parser_input[k] = (t_lexer **)malloc((zi_count_string(pipe_input, ' ') + 1) * sizeof(char *));
+	split_space = zi_split(program, pipe_input, ' ',0);
+	program->parser_input[k] = (t_lexer **)malloc((zi_count_string(pipe_input, ' ',0) + 1) * sizeof(char *));
 	if (!program->parser_input[k])
 	{
 		free_array(split_space);
@@ -58,8 +58,8 @@ static int clean_input(t_program *program, char *input)
 
 	z = 0;
 	k = 0;
-	pipe_input = zi_split(program, input, '|');
-	program->parser_input = (t_lexer ***)malloc((zi_count_string(input, '|') + 1) * sizeof(char **));
+	pipe_input = zi_split(program, input, '|',0);
+	program->parser_input = (t_lexer ***)malloc((zi_count_string(input, '|',0) + 1) * sizeof(char **));
 	if (!program->parser_input)
 	{
 		free_array(pipe_input);

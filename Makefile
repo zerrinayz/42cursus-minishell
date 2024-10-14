@@ -21,6 +21,10 @@ SRCS= main.c\
 	  builtin/env.c\
 	  builtin/export.c\
 	  builtin/zi_unset.c\
+	  execute/exec.c\
+	  execute/redirect.c\
+	  execute/exec_util.c\
+	  execute/heredoc.c\
 
 OBJS= $(SRCS:.c=.o)
 CC= gcc

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:37:45 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/05 16:58:20 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/13 13:59:23 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@ void	pwd(void)
 	char pwd[1024];
 	getcwd(pwd, sizeof(pwd));
 	printf("%s\n", pwd);
+	exit(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:25:09 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/01 19:25:11 by zayaz            ###   ########.fr       */
+/*   Updated: 2024/10/12 17:45:42 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*in_quote_string(char *s, char c)
 	return (s);
 }
 
-int	zi_count_string(char *s, char c)
+int	zi_count_string(char *s, char c,int redirect)
 {
 	int		count;
 	char	quote_type;
@@ -42,6 +42,8 @@ int	zi_count_string(char *s, char c)
 		}
 		if (*s == c || *s == '\0')
 		{
+			if(redirect && *s)
+				s++      ;
 			count++;
 			if (*s)
 				s++;
@@ -85,7 +87,7 @@ static int	zi_count_char(char *s, char c)
 	return (i);
 }
 
-char	**zi_split(t_program *program, char *s, char c)
+char	**zi_split(t_program *program, char *s, char c,int redirect)
 {
 	int		word;
 	int		i;
@@ -96,7 +98,7 @@ char	**zi_split(t_program *program, char *s, char c)
 	x = 0;
 	if (!s)
 		return (NULL);
-	word = zi_count_string(s, c);
+	word = zi_count_string(s, c,redirect);
 	s1 = ft_calloc(word + 1, sizeof(char *));
 	if (!s1)
 		return (NULL);
@@ -104,7 +106,7 @@ char	**zi_split(t_program *program, char *s, char c)
 	{
 		i = zi_count_char(s, c);
 		s1[x++] = ft_substr(s, 0, i);
-		s = walk_string(program, s, c);
+		s = walk_string(program, s, c,redirect);
 	}
 	s1[x] = NULL;
 	return (s1);

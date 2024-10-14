@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 12:38:58 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/05 18:23:52 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/13 14:48:11 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,20 @@ static void	search_del_env(t_program *program, char *key, t_list **lst)
 	program->unset_flag = 0;
 }
 
- int	check_identifier(char *parser_input)
+int	check_identifier(char *cmd)
 {
 	int	i;
 
 	i = 0;
-	if (ft_isalpha(parser_input[i]) || parser_input[i] == 95)
+	if (ft_isalpha(cmd[i]) || cmd[i] == 95)
 	{
-		while (parser_input[i])
+		while (cmd[i])
 		{
-			if ((parser_input[i] >= 32 && parser_input[i] <= 47)
-				|| (parser_input[i] >= 58 && parser_input[i] <= 64)
-				|| (parser_input[i] >= 91 && parser_input[i] <= 96
-					&& parser_input[i] != 95) || (parser_input[i] >= 123
-					&& parser_input[i] <= 126))
+			if ((cmd[i] >= 32 && cmd[i] <= 47)
+				|| (cmd[i] >= 58 && cmd[i] <= 64)
+				|| (cmd[i] >= 91 && cmd[i] <= 96
+					&& cmd[i] != 95) || (cmd[i] >= 123
+					&& cmd[i] <= 126))
 				return (0);
 			i++;
 		}
@@ -88,23 +88,25 @@ static void	search_del_env(t_program *program, char *key, t_list **lst)
 		return (0);
 }
 
-void	zi_unset(t_program *program, t_lexer ***parser_input)
+void	zi_unset(t_program *program, char **cmd)
 {
-	int i = 1;
-	if (parser_input[0] == NULL || parser_input[0][1] == NULL)
+	int	i;
+              
+	i = 1;
+	if (!cmd[1])
 		return ;
-	if (parser_input[0][i]->cmd)
+	if (cmd[i])
 	{
-		while (parser_input[0][i])
+		while (cmd[i])
 		{
-			if (!check_identifier(parser_input[0][i]->cmd))
+			if (!check_identifier(cmd[i]))
 				printf("unset: `%s':not a valid identifier\n",
-					parser_input[0][i]->cmd);
+					cmd[i]);
 			else
 			{
-				search_del_env(program, parser_input[0][i]->cmd,
+				search_del_env(program, cmd[i],
 					&program->envp_list);
-				search_del_env(program, parser_input[0][i]->cmd,
+				search_del_env(program, cmd[i],
 					&program->export_list);
 			}
 			i++;

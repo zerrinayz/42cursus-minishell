@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:50:25 by itulgar           #+#    #+#             */
-/*   Updated: 2024/09/30 19:47:17 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/11 18:49:58 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_program *program;
-	char *tmp;
+	t_program	*program;
+	char		*tmp;
 
 	program = NULL;
 	(void)argv;
@@ -29,13 +29,12 @@ int main(int argc, char **argv, char **envp)
 		tmp = ft_strtrim(program->input, " ");
 		free(program->input);
 		program->input = tmp;
-
 		if (program->input)
 		{
 			add_history(program->input);
 			if (!ft_strncmp(program->input, "exit", 5))
 			{
-				break;
+				break ;
 			}
 		}
 		if (program->input == NULL)
@@ -45,8 +44,8 @@ int main(int argc, char **argv, char **envp)
 			exit(1);
 		}
 		if (!ft_parser(program, program->input))
-			break;
-
+			break ;
+		zi_exec(program);
 		// exec
 		free_parser_input(program);
 		free(tmp);

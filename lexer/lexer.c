@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:42:31 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/05 19:17:01 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/13 14:58:17 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	quote_clean(t_program *program)
 		{
 			if (ft_strchr(program->parser_input[i][j]->cmd, 36))
 				dolar_handler(program, program->parser_input[i][j]);
-			zi_striteri(program->parser_input[i][j], f);
+			if (program->parser_input[i][j]->key != 7)
+				zi_striteri(program->parser_input[i][j], f);
 			// printf("cmd:%d: arg:%d:%s  key:%d\n", i, j,
 			// 	program->parser_input[i][j]->cmd,
 			// 	program->parser_input[i][j]->key);
@@ -83,31 +84,4 @@ void	quote_clean(t_program *program)
 		}
 		i++;
 	}
-	if (!program->parser_input[0])
-		return ;
-	if ((ft_strncmp(program->parser_input[0][0]->cmd, "exit",
-				ft_strlen(program->parser_input[0][0]->cmd)) == 0))
-		echo(program->parser_input);
-	else if ((ft_strncmp(program->parser_input[0][0]->cmd, "echo",
-				ft_strlen(program->parser_input[0][0]->cmd)) == 0))
-		echo(program->parser_input);
-	else if ((ft_strncmp(program->parser_input[0][0]->cmd, "pwd",
-				ft_strlen(program->parser_input[0][0]->cmd)) == 0))
-		pwd();
-	else if ((ft_strncmp(program->parser_input[0][0]->cmd, "cd",
-				ft_strlen(program->parser_input[0][0]->cmd)) == 0))
-		cd(program, program->parser_input);
-	else if ((ft_strncmp(program->parser_input[0][0]->cmd, "unset",
-				ft_strlen(program->parser_input[0][0]->cmd)) == 0))
-		zi_unset(program, program->parser_input);
-	else if ((ft_strncmp(program->parser_input[0][0]->cmd, "export",
-				ft_strlen(program->parser_input[0][0]->cmd)) == 0))
-		export(program, program->parser_input);
-	else if ((ft_strncmp(program->parser_input[0][0]->cmd, "env",
-				ft_strlen(program->parser_input[0][0]->cmd)) == 0))
-		env(program, program->parser_input);
 }
-
-// 0 1
-//0
-//dup2() ->1 

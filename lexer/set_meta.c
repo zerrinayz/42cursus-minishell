@@ -6,7 +6,7 @@
 /*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:24:42 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/01 19:24:46 by zayaz            ###   ########.fr       */
+/*   Updated: 2024/10/08 17:45:08 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,6 @@ int	set_meta(t_program *program, char *meta)
 	(void)program;
 	if ((ft_strchr(meta, 34) == 0) && (ft_strchr(meta, 39) == 0))
 	{
-		// if (!ft_strncmp(meta, "<", ft_strlen(meta)))
-		// 	return (Input);
-		// else if (!ft_strncmp(meta, ">", ft_strlen(meta)))
-		// 	return (Output);
-		// else if (!ft_strncmp(meta, "<<", ft_strlen(meta)))
-		// 	return (Heredoc);
-		// else if (!ft_strncmp(meta, ">>", ft_strlen(meta)))
-		// 	return (Append);
 		if (!ft_strncmp(meta, "~", ft_strlen(meta)))
 			return (Tilde);
 		else if (ft_strchr(meta, 36))
