@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:45:46 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/14 16:56:09 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/15 18:11:01 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,18 @@ void exec_builtin(t_program *program)
 }
 void create_fork(t_program *program, int *i)
 {
-	pid_t pid_fork;
+//	pid_t pid_fork;
 
-	pid_fork = fork();
+//pid_fork = fork();
 	// exit atman gerek burada
-	if (pid_fork == -1)
-		return;
+//	if (pid_fork == -1)
+//		return;
 	if (pid_fork == 0)
 	{
 		if (program->hd_count > 0)
-		{
-			printf("count: %d\n",program->hd_count);
-			
 			heredoc_run(program);
-		}
 		if (redirect_c(program, i))
-		{
-			printf("geldim rido\n");
 			redirect(program, i);
-		}
 		// echo a >as< biy
 		// program->cmd;
 		// redirect tırnağını temizlemeyi unutmayın
@@ -93,7 +86,10 @@ void zi_exec(t_program *program)
 		i++;
 	}
 	i = 0;
-	while (program->p_count > 0 && i < program->p_count)
-		waitpid(program->process[i++].pid, NULL, 0);
+	  for (i = 0; i < program->p_count; i++) {
+        wait(NULL);
+    }
+	// while (program->p_count > 0 && i < program->p_count)
+	// 	waitpid(program->process[i++].pid, NULL, 0);
 	// close_pipe;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 18:20:33 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/14 17:09:35 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/15 17:31:19 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int zi_strcmp(const char *s1, const char *s2)
 void heredoc(char *s)
 {
 	char *line;
-	printf(" hero %s:\n", s);
 
 	global_signal = IN_HERADOC;
 	while (1)
@@ -57,8 +56,6 @@ void heredoc(char *s)
 			break;
 		if (zi_strcmp(s, line) == 0)
 		{
-
-			printf("geldim hero\n");
 			free(line);
 			break;
 		}
@@ -70,7 +67,6 @@ void heredoc_run(t_program *program)
 {
 	int i;
 	int j;
-	//<<a<< a
 	i = 0;
 	j = 0;
 	while (program->parser_input[i])

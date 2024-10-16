@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:50:28 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/14 17:46:45 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/15 16:44:12 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #define IN_HERADOC 2
 
 #include <stdio.h>
-#include "includes/libft/libft.h"
 #include "readline/include/readline/history.h"
 #include "readline/include/readline/readline.h"
+#include "includes/libft/libft.h"
 #include <fcntl.h>
 #include <signal.h>
 #include <stdlib.h>
@@ -113,5 +113,5 @@ void go_redirect(t_program *program, void run_redirect(char *),
 				 char key, int *i, int *j, int split_rd);
 int zi_redirectchr(const char *s, char c);
 int heredoc_count(t_program *program);
-void equal_in_export(t_program *program, char *cmd, int *i);
+void equal_in_export(t_program *program, char **cmd, int *i);
 #endif

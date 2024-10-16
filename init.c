@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:32:15 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/14 17:11:51 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/15 17:43:35 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ static t_list *set_env(char **envp)
 
 void signal_handler(int sig)
 {
-	(void)sig;
-	//global_signal = sig;
+	global_signal = sig;
 	if (global_signal == SIGINT)
 	{
 		printf("\n");
@@ -52,16 +51,16 @@ void signal_handler(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	 if (global_signal == IN_HERADOC)
+	{
+		write(1, "\n", 1);
+		exit(0);
+	}
 	// else if (global_signal == EOF)
 	// {
 	// 	printf("exit\n");
 	// 	exit(1);
 	// }
-	else if (global_signal == IN_HERADOC)
-	{
-		write(1, "\n", 1);
-		exit(1);
-	}
 	global_signal = 0;
 }
 static void init_signal(void)

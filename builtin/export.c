@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:47:05 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/14 17:46:56 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/15 16:44:30 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ static void export_env(t_program *program)
 	}
 }
 
-static void equals(char *cmd, int *k)
-{
-	while (cmd[*k] != '\0' && cmd[*k] != 61)
-		(*k)++;
-	if (cmd && cmd[*k] == 61)
-		(*k)++;
-}
 static char *equals_key(char *cmd)
 {
 	char *equ_key;
@@ -66,7 +59,7 @@ static char *equals_key(char *cmd)
 	return (equ_key);
 }
 
-static void export_run(t_program *program, char *cmd, int i)
+static void export_run(t_program *program, char **cmd, int i)
 {
 	char *equ_key;
 	t_list *node;

@@ -15,7 +15,16 @@ static void export_add_list(t_program *program, char *key, char *content)
     free(key);
     free(content);
 }
-void equal_in_export(t_program *program, char *cmd, int *i)
+
+ void equals(char *cmd, int *k)
+{
+	while (cmd[*k] != '\0' && cmd[*k] != 61)
+		(*k)++;
+	if (cmd && cmd[*k] == 61)
+		(*k)++;
+}
+
+void equal_in_export(t_program *program, char **cmd, int *i)
 {
 
     char *key;

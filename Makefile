@@ -19,6 +19,7 @@ SRCS= main.c\
 	  builtin/cd.c\
 	  builtin/pwd.c\
 	  builtin/env.c\
+	  builtin/export_util.c\
 	  builtin/export.c\
 	  builtin/zi_unset.c\
 	  execute/exec.c\

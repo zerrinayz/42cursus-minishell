@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zerrinayaz <zerrinayaz@student.42.fr>      +#+  +:+       +#+        */
+/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:23:50 by zayaz             #+#    #+#             */
-/*   Updated: 2024/10/14 17:26:32 by zerrinayaz       ###   ########.fr       */
+/*   Updated: 2024/10/15 16:42:44 by itulgar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void cd_path(char *cwd, char *cmd)
 {
 	char *path;
 
-	path = cmd[1];
+	path = cmd;
 	if (access(path, F_OK) == 0)
 	{
 		getcwd(cwd, sizeof(cwd));
