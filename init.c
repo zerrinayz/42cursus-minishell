@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:32:15 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/15 17:43:35 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/16 18:06:24 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void print_list(t_list *list)
+void	print_list(t_list *list)
 {
-
 	while (list != NULL)
 	{
 		printf("%s=%s\n", (char *)list->key, (char *)list->content);
@@ -22,11 +21,11 @@ void print_list(t_list *list)
 	}
 }
 
-static t_list *set_env(char **envp)
+static t_list	*set_env(char **envp)
 {
-	int i;
-	t_list *tmp_list;
-	char **tmp;
+	int		i;
+	t_list	*tmp_list;
+	char	**tmp;
 
 	tmp_list = NULL;
 	i = 0;
@@ -41,36 +40,31 @@ static t_list *set_env(char **envp)
 	return (tmp_list);
 }
 
-void signal_handler(int sig)
+void	signal_handler(int sig)
 {
-	global_signal = sig;
-	if (global_signal == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	 if (global_signal == IN_HERADOC)
-	{
-		write(1, "\n", 1);
-		exit(0);
-	}
-	// else if (global_signal == EOF)
-	// {
-	// 	printf("exit\n");
-	// 	exit(1);
-	// }
+	(void)sig;
+		 if (global_signal == 0)
+		{
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+		else if (global_signal == IN_HERADOC)
+		{
+			exit(0);
+		}
+	
 	global_signal = 0;
 }
-static void init_signal(void)
+
+static void	init_signal(void)
 {
 	signal(SIGINT, signal_handler);
-	// signal(EOF, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void ft_init_program(t_program *program, char **envp)
+void	ft_init_program(t_program *program, char **envp)
 {
 	program->input = NULL;
 	program->envp_list = set_env(envp);

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:50:28 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/15 16:44:12 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/16 18:33:42 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
 #define IN_HERADOC 2
+#define IN_PARENT 3
 
 #include <stdio.h>
 #include "readline/include/readline/history.h"
@@ -25,10 +26,6 @@
 
 enum set_meta
 {
-	// Append = 0,
-	// Heredoc = 1,
-	// Input = 2,
-	// Output = 3,
 	Tilde = 4,
 	Dolar = 5,
 	S_Dolar = 6,
@@ -54,7 +51,6 @@ typedef struct s_program
 {
 	t_list *envp_list;
 	t_list *export_list;
-	t_list *lexer_list;
 	char *input;
 	t_lexer ***parser_input;
 	int export_flag;
@@ -65,7 +61,7 @@ typedef struct s_program
 	t_process *process;
 	int p_count;
 	char **cmd;
-	int hd_count;
+	//int hd_count;
 } t_program;
 
 int error_message(char *str);
@@ -114,4 +110,5 @@ void go_redirect(t_program *program, void run_redirect(char *),
 int zi_redirectchr(const char *s, char c);
 int heredoc_count(t_program *program);
 void equal_in_export(t_program *program, char **cmd, int *i);
+int	zi_strcmp(const char *s1, const char *s2);
 #endif

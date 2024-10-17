@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itulgar < itulgar@student.42istanbul.co    +#+  +:+       +#+        */
+/*   By: zayaz <zayaz@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:50:25 by itulgar           #+#    #+#             */
-/*   Updated: 2024/10/11 18:49:58 by itulgar          ###   ########.fr       */
+/*   Updated: 2024/10/16 18:48:20 by zayaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_program(program, envp);
 	while (1)
 	{
+		global_signal = 0;
 		program->input = readline("minishell 🐥>");
 		tmp = ft_strtrim(program->input, " ");
 		free(program->input);
@@ -45,6 +46,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (!ft_parser(program, program->input))
 			break ;
+		if(heredoc_count(program)>0)
+			heredoc_run(program);
 		zi_exec(program);
 		// exec
 		free_parser_input(program);
